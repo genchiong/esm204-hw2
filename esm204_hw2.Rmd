@@ -1,0 +1,10 @@
+---
+title: "ESM 204 Assignment 2"
+author: "Genevieve Chiong"
+date: "4/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
