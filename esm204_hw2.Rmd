@@ -6,5 +6,118 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(here)
+library(kableExtra)
+library(effsize)
+library(broom)
+library(ggbeeswarm)
 ```
+
+```{r}
+water <- read_csv("HW2_Water.csv")
+```
+
+```{r}
+ggplot(data = water,
+       aes(x = Abatement,
+           y = MC_Agriculture)) +
+  geom_point(aes(x = Abatement,
+                 y = MC_Agriculture), 
+             color = "skyblue3", 
+             size = 2) + 
+  geom_smooth(aes(x = Abatement,
+                  y = MC_Agriculture),
+              method = "lm", 
+              se = FALSE, 
+              color = "skyblue3") + 
+  ggpubr::stat_regline_equation(label.x = 77, label.y = 1250) + 
+  geom_point(aes(x = Abatement,
+                 y = MC_Meat),
+             color = "orange", 
+             size = 2) +
+  geom_smooth(aes(x = Abatement,
+                  y = MC_Meat),
+              method = "lm", 
+              se = FALSE, 
+              color = "orange") + 
+  geom_point(aes(x = Abatement,
+                 y = MC_Industrial),
+             color = "violetred",
+             size = 2) +
+  geom_smooth(aes(x = Abatement,
+                  y = MC_Industrial),
+              method = "lm", 
+              se = FALSE, 
+              color = "violetred") + 
+  geom_point(aes(x = Abatement,
+                 y = MC_Urban),
+             color = "purple",
+             size = 2) +
+  geom_smooth(aes(x = Abatement,
+                  y = MC_Urban),
+              method = "lm", 
+              se = FALSE, 
+              color = "purple") +  
+  labs(x = "\nReduced Water Use (Acre Feet)", 
+       y = "Marginal Abatement Cost ($/Acre Foot)\n") +
+  theme_bw() 
+
+```
+
+```{r}
+
+ggplot(data = ca_groundwater) +
+  geom_line(aes(x = year,
+                y = inflow),
+            color = "skyblue3",
+            size = 1.5) +
+  geom_line(aes(x = year,
+                y = outflow),
+            color = "orange",
+            size = 1.5) +
+  labs(x = "\nYear",
+       y = bquote ("Groundwater Flow (" ~ 10^9 ~ m^3 ~")"),
+       title = "Annual Mass Balance Model of California Groundwater from 2000-2050\n") +
+  theme_bw() +
+  annotate("text", 
+           x = 2010, 
+           y = 23, 
+           label= "y = 0.176x - 333.8") +
+  annotate("text", 
+           x = 2010, 
+           y = 14, 
+           label= "y = -0.05x + 112.8") +
+  annotate("text", 
+           x = 2010, 
+           y = 24, 
+           label= "outflow") +
+  annotate("text", 
+           x = 2010, 
+           y = 15, 
+           label= "inflow") +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 12))
+
+#ggplot(data = hindft_length,
+       #aes(x = hindft,
+          # y = weight)) +
+ # geom_point(color = "skyblue3",
+  #           size = 2) +
+  #  labs(x = "\nJuvenile Snowshoe Hare Hind Foot Length (mm)",
+  #     y = "Weight (g)\n") +
+  #geom_smooth(method = "lm", 
+  #            se = FALSE, 
+  #            color = "gray30") + 
+  #theme_bw() +
+  #ggpubr::stat_regline_equation(label.x = 77, label.y = 1250)
+```
+
+
+
+
+
+
